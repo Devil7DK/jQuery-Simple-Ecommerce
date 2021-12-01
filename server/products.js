@@ -1,12 +1,7 @@
+/// <reference path="../models.js" />
+
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
-
-/**
- * @typedef {object} Product
- * @property {number} id ID of the product
- * @property {string} product_name Name of the product
- * @property {number} price Price of the product
- */
 
 /**
  * @type {Array<Product>}
