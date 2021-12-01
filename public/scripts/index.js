@@ -59,7 +59,13 @@ $(function () {
         });
     }
 
-    function createToast(message) {
+    /**
+     * Shows toast message
+     *
+     * @param {string} message Toast message text
+     * @param {number} timeout Timeout in milli seconds
+     */
+    function createToast(message, timeout = 5000) {
         const $toast = $(//
         /*html*/ `
             <div class="toast">
@@ -69,12 +75,14 @@ $(function () {
             .hide()
             .appendTo(document.body);
 
-        $toast.fadeIn(500, function () {
+        const fadeDelay = Math.min(timeout / 10, 1000);
+
+        $toast.fadeIn(fadeDelay, function () {
             setTimeout(() => {
-                $toast.fadeOut(500, function () {
+                $toast.fadeOut(fadeDelay, function () {
                     $(this).remove();
                 });
-            }, 5000);
+            }, timeout);
         });
     }
 
