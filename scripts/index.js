@@ -6,12 +6,6 @@
  */
 
 /**
- * @typedef {object} ProductsResponse
- * @property {Array<Product>} items List of products
- * @property {number} total Total number of products
- */
-
-/**
  * @typedef {object} CartItem
  * @property {Product} product Product linked with cart item
  * @property {number} count Cart item count
@@ -43,42 +37,37 @@ $(function () {
      * @param {number} page Page number to fetch
      */
     function fetchProducts() {
-        $.ajax({
-            url: `/products?${new URLSearchParams({
-                startAt: (currentPage - 1) * productsPerPage,
-                limit: productsPerPage,
-            })}`,
-            method: 'GET',
-            dataType: 'json',
-            success: function (/** @type {ProductsResponse} */ response) {
-                var $productsList = $('#productsList').empty();
-                var $paginator = $('#paginator').empty();
+        const start = (currentPage - 1) * productsPerPage;
+        const end = start + productsPerPage;
 
-                if (Array.isArray(response.items)) {
-                    currentProducts = response.items;
+        $.getJSON('../products.json').done(function (/** @type {Array<Product>} */ response) {
+            var $productsList = $('#productsList').empty();
+            var $paginator = $('#paginator').empty();
 
-                    response.items.forEach((product) => {
-                        $productsList.append(//
-                        /*html*/ `
-                            <div id="${product.id}" class="product">
-                                <img class='product-image' src="https://via.placeholder.com/300?text=Product" />
-                                <div class="product-name">${product.product_name}</div>
-                                <div class="product-price">${product.price}</div>
-                                <div class="spacer"></div>
-                                <button class="add-cart" data-product-id="${product.id}">Add to Cart</button>
-                            </div>
-                            `);
-                    });
+            if (Array.isArray(response)) {
+                var items = (currentProducts = response.slice(start, end));
 
-                    const totalPages = Math.ceil(response.total / productsPerPage);
-                    for (let i = 1; i <= totalPages; i++) {
-                        $paginator.append(
-                            //
-                            /*html*/ `<button id="page-${i}" data-page="${i}" class="page ${(i == currentPage && 'selected') || ''}">${i}</button>`
-                        );
-                    }
+                items.forEach((product) => {
+                    $productsList.append(//
+                    /*html*/ `
+                        <div id="${product.id}" class="product">
+                            <img class='product-image' src="https://via.placeholder.com/300?text=Product" />
+                            <div class="product-name">${product.product_name}</div>
+                            <div class="product-price">${product.price}</div>
+                            <div class="spacer"></div>
+                            <button class="add-cart" data-product-id="${product.id}">Add to Cart</button>
+                        </div>
+                        `);
+                });
+
+                const totalPages = Math.ceil(response.length / productsPerPage);
+                for (let i = 1; i <= totalPages; i++) {
+                    $paginator.append(
+                        //
+                        /*html*/ `<button id="page-${i}" data-page="${i}" class="page ${(i == currentPage && 'selected') || ''}">${i}</button>`
+                    );
                 }
-            },
+            }
         });
     }
 
