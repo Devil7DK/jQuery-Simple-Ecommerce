@@ -195,6 +195,14 @@ div.modal-container {
 
             > tbody {
                 flex: 1 1 1px;
+
+                &:empty::before {
+                    align-items: center;
+                    content: 'Cart is empty!';
+                    display: flex;
+                    flex: 1 1 1px;
+                    justify-content: center;
+                }
             }
 
             button.remove-cart-item {
@@ -208,6 +216,10 @@ div.modal-container {
             display: flex;
             gap: 20px;
             justify-content: center;
+
+            > button {
+                height: 44px;
+            }
         }
     }
 
