@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs';
+import { resolve } from 'path';
 
 /**
  * @typedef {object} Product
@@ -10,7 +11,7 @@ import { readFileSync } from 'fs';
 /**
  * @type {Array<Product>}
  */
-const products = JSON.parse(readFileSync(new URL('data/products.json', import.meta.url)));
+const products = JSON.parse(readFileSync(resolve('data/products.json')));
 
 /**
  * @type {import('express').RequestHandler}
@@ -21,6 +22,6 @@ export const productsController = (req, res) => {
 
     res.send({
         items: products.slice(startAt, startAt + limit),
-        total: products.length
+        total: products.length,
     });
-}
+};
