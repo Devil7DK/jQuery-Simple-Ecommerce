@@ -1,0 +1,11 @@
+{
+    "include": [
+        "public/scripts",
+        "models.js"
+    ],
+    "typeAcquisition": {
+        "include": [
+            "jquery"
+        ]
+    }
+}
