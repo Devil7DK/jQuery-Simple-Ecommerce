@@ -1,0 +1,7 @@
+{
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "pushqrdx.inline-html",
+        "ritwickdey.LiveServer"
+    ]
+}
