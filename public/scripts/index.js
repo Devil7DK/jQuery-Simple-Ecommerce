@@ -66,6 +66,8 @@ $(function () {
      * @param {number} timeout Timeout in milli seconds
      */
     function createToast(message, timeout = 5000) {
+        $('.toast').remove();
+
         const $toast = $(//
         /*html*/ `
             <div class="toast">
@@ -79,9 +81,11 @@ $(function () {
 
         $toast.fadeIn(fadeDelay, function () {
             setTimeout(() => {
-                $toast.fadeOut(fadeDelay, function () {
-                    $(this).remove();
-                });
+                if ($toast.closest('body').length) {
+                    $toast.fadeOut(fadeDelay, function () {
+                        $(this).remove();
+                    });
+                }
             }, timeout);
         });
     }
