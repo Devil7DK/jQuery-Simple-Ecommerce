@@ -164,12 +164,14 @@ $(function () {
 
         if (!cartItems.has(productId)) {
             cartItems.set(productId, {
-                count: 0,
+                count: 1,
                 product,
             });
+            createToast('Item added to cart!', 2000);
+        } else {
+            cartItems.get(productId).count++;
+            createToast('Cart updated!', 2000);
         }
-
-        cartItems.get(productId).count++;
 
         updateCartState();
     });
