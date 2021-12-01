@@ -1,7 +1,6 @@
 {
     "include": [
-        "public/scripts",
-        "models.js"
+        "scripts"
     ],
     "typeAcquisition": {
         "include": [
