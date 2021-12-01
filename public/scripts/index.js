@@ -140,6 +140,11 @@ $(function () {
         propay.open();
     });
 
+    $('#paginator').on('click', 'button.page', function () {
+        currentPage = Number($(this).attr('data-page'));
+        fetchProducts();
+    });
+
     $('#productsList').on('click', 'div.product > button.add-cart', function () {
         const productId = Number($(this).attr('data-product-id'));
 
