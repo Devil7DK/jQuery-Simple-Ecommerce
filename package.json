@@ -5,7 +5,7 @@
     "main": "app.js",
     "type": "module",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "format": "prettier -w app.js public/**/*"
     },
     "keywords": [
         "jquery",
@@ -14,5 +14,8 @@
         "payment"
     ],
     "author": "Devil7DK",
-    "license": "Apache-2.0"
+    "license": "Apache-2.0",
+    "devDependencies": {
+        "prettier": "^2.5.0"
+    }
 }
