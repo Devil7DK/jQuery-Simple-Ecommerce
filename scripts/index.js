@@ -40,16 +40,20 @@ $(function () {
         const start = (currentPage - 1) * productsPerPage;
         const end = start + productsPerPage;
 
-        $.getJSON('../products.json').done(function (/** @type {Array<Product>} */ response) {
-            var $productsList = $('#productsList').empty();
-            var $paginator = $('#paginator').empty();
+        $.getJSON('products.json')
+            .catch(function () {
+                debugger;
+            })
+            .done(function (/** @type {Array<Product>} */ response) {
+                var $productsList = $('#productsList').empty();
+                var $paginator = $('#paginator').empty();
 
-            if (Array.isArray(response)) {
-                var items = (currentProducts = response.slice(start, end));
+                if (Array.isArray(response)) {
+                    var items = (currentProducts = response.slice(start, end));
 
-                items.forEach((product) => {
-                    $productsList.append(//
-                    /*html*/ `
+                    items.forEach((product) => {
+                        $productsList.append(//
+                        /*html*/ `
                         <div id="${product.id}" class="product">
                             <img class='product-image' src="https://via.placeholder.com/300?text=Product" />
                             <div class="product-name">${product.product_name}</div>
@@ -58,17 +62,17 @@ $(function () {
                             <button class="add-cart" data-product-id="${product.id}">Add to Cart</button>
                         </div>
                         `);
-                });
+                    });
 
-                const totalPages = Math.ceil(response.length / productsPerPage);
-                for (let i = 1; i <= totalPages; i++) {
-                    $paginator.append(
-                        //
-                        /*html*/ `<button id="page-${i}" data-page="${i}" class="page ${(i == currentPage && 'selected') || ''}">${i}</button>`
-                    );
+                    const totalPages = Math.ceil(response.length / productsPerPage);
+                    for (let i = 1; i <= totalPages; i++) {
+                        $paginator.append(
+                            //
+                            /*html*/ `<button id="page-${i}" data-page="${i}" class="page ${(i == currentPage && 'selected') || ''}">${i}</button>`
+                        );
+                    }
                 }
-            }
-        });
+            });
     }
 
     /**
